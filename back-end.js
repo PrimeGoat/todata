@@ -64,6 +64,57 @@ const priority1Only = function (todos) {
   return todos.filter(isLowPriority)
 }
 
+const notCompleteFirst = function(todo) {
+  const sorted = [...todo];
+
+  return sorted.sort(function(a, b) {
+    // Sort by completeness
+    out = a.complete - b.complete;
+    if(out != 0) {
+      return out;
+    }
+
+    // Subsort by id
+    return a.id - b.id;
+  });
+}
+
+const priority2First = function(todo) {
+  const sorted = [...todo];
+
+  return sorted.sort(function(a, b) {
+    // Sort by priority
+    out = b.priority - a.priority;
+    if(out != 0) {
+      return out;
+    }
+  
+    // Subsort by id
+    return a.id - b.id;
+  });
+}
+
+const notCthenPri2First = function(todo) {
+  const sorted = [...todo];
+
+  return sorted.sort(function(a, b) {
+    // Sort by completeness
+    let out = a.complete - b.complete;
+    if(out != 0) {
+      return out;
+    }
+
+    // Subsort by priority
+    out = b.priority - a.priority;
+    if(out != 0) {
+      return out;
+    }
+
+    // SubSubsort by id
+    return a.id - b.id;
+  });
+}
+
 if (typeof notCompleteFirst === 'undefined') {
   notCompleteFirst = undefined;
 }
@@ -72,6 +123,7 @@ if (typeof priority2First === 'undefined') {
   priority2First = undefined;
 }
 
+/*
 module.exports = {
   getTodoName,
   getCompleteness,
@@ -87,3 +139,4 @@ module.exports = {
   notCompleteFirst,
   priority2First,
 }
+*/

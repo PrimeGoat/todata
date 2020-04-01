@@ -2,6 +2,9 @@ const printTodo = function(todo) {
   // Use `document.createElement` to make an <li>
   const li = document.createElement('li');
   li.innerText = todo.text;
+  if(showPriorities) {
+    li.innerText += " - " + ((todo.priority == 2) ? 'High' : 'Low');
+  }
 
   // Query the ul and put it in a variable.
   const ul = document.querySelector('.todo-list');
@@ -22,7 +25,7 @@ const printTodo = function(todo) {
   // Give the name <p> an event listener to toggle its completeness.
   li.addEventListener('click', function(event) {
     event.target.classList.toggle('complete')
-    // TODO: find the correct todo in your data to toggle the completeness of!
-    
-  })
+    todos[todo.id].complete = !todos[todo.id].complete;
+    refreshTodos();
+  });
 }
